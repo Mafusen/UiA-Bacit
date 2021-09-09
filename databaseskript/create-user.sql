@@ -24,3 +24,12 @@ values (
         'trym@example.com',
         '12345',
         '1993-25-09');
+		
+		
+insert into user (User_firstname, User_lastname)
+values ('Marius', 'Bakken');
+
+select * from user;
+
+insert into user (User_firstname, User_password)
+values ('Marius', '345');
