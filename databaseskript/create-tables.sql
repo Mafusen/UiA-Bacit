@@ -1,28 +1,65 @@
-CREATE DATABASE if not exists AMVDB
+CREATE DATABASE if not exists AMVDB;
 
-USE AMVDB 
+USE AMVDB;
 
-create table if not exists user(
-    User_ID int UNIQUE auto_increment,
+create table if not exists USER(
+    USER_ID int UNIQUE auto_increment,
     Fname varchar(255),
     Lname varchar(255),
 	Phone varchar(255),
 	Username varchar (255),
     Password varchar(255),
-    PRIMARY KEY (User_ID)
+    PRIMARY KEY (USER_ID)
     );
+	
+create table if not exists TOOLS(
+	TOOL_ID int UNIQUE auto_increment,
+	Tool_Name varchar(255),
+	Tool_Info varchar(255),
+	Price int,
+	Image BLOB,
+	PRIMARY KEY (TOOL_ID)
+	);
 
+create table if not exists BOOKING(
+	BOOKING_ID int UNIQUE auto_increment,
+	StartDate DATE,
+	EndDate DATE,
+	Cmnt varchar(255),
+	IsDelivered boolean,
+	TotalPrice int,
+	USER_ID int,
+	TOOL_ID int,
+	PRIMARY KEY (BOOKING_ID),
+	FOREIGN KEY (USER_ID) REFERENCES USER(USER_ID),
+	FOREIGN KEY (TOOL_ID) REFERENCES TOOLS(TOOL_ID)
+	);
 
-#inserter en record av en bruker inn i databasen otra.
-insert into user (
-	User_firstName,
-    User_lastName,
-    User_Email,
-    User_password,
-    User_dob)
-values (
-    'trym',
-    'Staurheim',
-    'trym@example.com',
-    '12345',
-    '1993-25-09');
+create table if not exists COURSE(
+    COURSE_ID int UNIQUE auto_increment,
+	Course_Title varchar(255),
+	Expiry_Date DATE,
+	PRIMARY KEY (COURSE_ID)
+	);
+	
+create table if not exists CERTIFICATE(
+	CERTIFICATE_ID int UNIQUE auto_increment,
+	USER_ID int,
+	Course_ID int,
+	PRIMARY KEY (CERTIFICATE_ID),
+	FOREIGN KEY (USER_ID) REFERENCES USER(USER_ID)
+	);
+	
+create table if not exists UNION_MEMBER(
+	UNION_ID int UNIQUE auto_increment,
+	USER_ID int,
+	PRIMARY KEY (UNION_ID),
+	FOREIGN KEY (USER_ID) REFERENCES USER(USER_ID)
+	);
+	
+create table if not exists ADMIN(	
+	ADMIN_ID int UNIQUE auto_increment,
+	USER_ID int,
+	PRIMARY KEY (ADMIN_ID),
+	FOREIGN KEY (USER_ID) REFERENCES USER(USER_ID)
+	);
