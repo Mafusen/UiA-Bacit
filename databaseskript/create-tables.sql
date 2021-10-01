@@ -38,27 +38,25 @@ create table if not exists BOOKING(
 create table if not exists COURSE(
     COURSE_ID int UNIQUE auto_increment,
 	Course_Title varchar(255),
-	Expiry_Date DATE,
 	PRIMARY KEY (COURSE_ID)
 	);
 	
 create table if not exists CERTIFICATE(
-	CERTIFICATE_ID int UNIQUE auto_increment,
 	USER_ID int,
-	Course_ID int,
-	PRIMARY KEY (CERTIFICATE_ID),
-	FOREIGN KEY (USER_ID) REFERENCES USER(USER_ID)
+	COURSE_ID int,
+	Exiry_Date DATE,
+	PRIMARY KEY (USER_ID, COURSE_ID),
+	FOREIGN KEY (USER_ID) REFERENCES USER(USER_ID),
+	FOREIGN KEY (COURSE_ID) REFERENCES COURSE(COURSE_ID)
 	);
 	
 create table if not exists UNION_MEMBER(
-	UNION_ID int UNIQUE auto_increment,
 	USER_ID int,
 	PRIMARY KEY (UNION_ID),
 	FOREIGN KEY (USER_ID) REFERENCES USER(USER_ID)
 	);
 	
 create table if not exists ADMIN(	
-	ADMIN_ID int UNIQUE auto_increment,
 	USER_ID int,
 	PRIMARY KEY (ADMIN_ID),
 	FOREIGN KEY (USER_ID) REFERENCES USER(USER_ID)
